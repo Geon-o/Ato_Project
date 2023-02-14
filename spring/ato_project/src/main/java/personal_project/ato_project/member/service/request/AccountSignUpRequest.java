@@ -1,18 +1,17 @@
 package personal_project.ato_project.member.service.request;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import personal_project.ato_project.member.entity.Member;
 
 @Getter
 @ToString
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class AccountSignUpRequest {
 
-    private final String email;
-    private final String password;
-    private final String name;
+    private String email;
+    private String password;
+    private String name;
 
     public Member setMember(){
         return new Member(email, name);
