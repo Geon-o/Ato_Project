@@ -15,7 +15,7 @@ public class MemberController {
     @Autowired
     private MemberService memberService;
 
-    @PostMapping("/sing-up")
+    @PostMapping("/sign-up")
     public boolean SignUp(@RequestBody AccountSignUpRequest accountSignUpRequest) {
         log.info(String.valueOf(accountSignUpRequest));
 
