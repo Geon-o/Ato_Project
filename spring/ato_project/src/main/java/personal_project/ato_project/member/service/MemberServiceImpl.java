@@ -11,6 +11,8 @@ import personal_project.ato_project.member.repository.AuthenticationRepository;
 import personal_project.ato_project.member.repository.MemberRepository;
 import personal_project.ato_project.member.service.request.AccountSignUpRequest;
 
+import java.util.Optional;
+
 @Slf4j
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -30,6 +32,16 @@ public class MemberServiceImpl implements MemberService{
                 Authentication.BASIC_AUTH, accountSignUpRequest.getPassword());
         authenticationRepository.save(authentication);
 
+        return true;
+    }
+
+    @Override
+    public Boolean emailDuplicateCheck(String email) {
+        Optional<Member> maybeEmail = memberRepository.findByEmail(email);
+
+        if (maybeEmail.isEmpty()){
+            return false;
+        }
         return true;
     }
 }

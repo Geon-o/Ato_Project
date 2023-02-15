@@ -21,4 +21,11 @@ public class MemberController {
 
         return memberService.signUp(accountSignUpRequest);
     }
+
+    @PostMapping("/duplicate/{email}")
+    public Boolean accountEmailDuplicateCheck(@PathVariable("email") String email) {
+        log.info(email);
+
+        return memberService.emailDuplicateCheck(email);
+    }
 }

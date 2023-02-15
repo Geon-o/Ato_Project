@@ -19,4 +19,11 @@ public class MemberAccountTest {
 
         memberService.signUp(accountSignUpRequest);
     }
+
+    @Test
+    void accountEmailDuplicateCheck(){
+        String email = "gggg@naver.com";
+
+        System.out.println(memberService.emailDuplicateCheck(email));
+    }
 }
