@@ -26,4 +26,11 @@ public class MemberAccountTest {
 
         System.out.println(memberService.emailDuplicateCheck(email));
     }
+
+    @Test
+    void accountNicknameDuplicateCheck(){
+        String name = "테스트";
+
+        System.out.println(memberService.nicknameDuplicateCheck(name));
+    }
 }

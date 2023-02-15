@@ -28,4 +28,11 @@ public class MemberController {
 
         return memberService.emailDuplicateCheck(email);
     }
+
+    @PostMapping("/duplicate/{name}")
+    public Boolean accountNicknameDuplicateCheck(@PathVariable("name") String name) {
+        log.info(name);
+
+        return memberService.nicknameDuplicateCheck(name);
+    }
 }

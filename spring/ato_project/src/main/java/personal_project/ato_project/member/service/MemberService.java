@@ -7,4 +7,6 @@ public interface MemberService {
     Boolean signUp(AccountSignUpRequest accountSignUpRequest);
 
     Boolean emailDuplicateCheck(String email);
+
+    Boolean nicknameDuplicateCheck(String name);
 }
