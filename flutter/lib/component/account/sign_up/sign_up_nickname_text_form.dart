@@ -57,7 +57,7 @@ class _SignUpNicknameTextForm extends State<SignUpNicknameTextForm> {
                           DuplicateNicknameRequest(name!));
 
                       validation.then((value) {
-                        if (value.success == true) {
+                        if (value.success == false) {
                           showDialog(
                               context: context,
                               barrierDismissible: false,
@@ -74,7 +74,7 @@ class _SignUpNicknameTextForm extends State<SignUpNicknameTextForm> {
                             SignUpNicknameTextForm.buttonStateValue = true;
                           });
                         }
-                        if (value.success == false) {
+                        if (value.success == true) {
                           showDialog(
                               context: context,
                               barrierDismissible: false,

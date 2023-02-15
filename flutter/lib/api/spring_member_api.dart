@@ -21,19 +21,91 @@ class SpringMemberApi {
       debugPrint("통신 실패");
     }
   }
+
+  Future<DuplicateEmailResponse> emailDuplicateCheck(
+      DuplicateEmailRequest request) async {
+    var data = {"email": request.email};
+    var body = json.encode(data);
+
+    var response = await http.post(
+      Uri.http(IpInfo.httpUri, '/member/check-id/${request.email}'),
+      headers: {"Content-Type": "application/json"},
+      body: body,
+    );
+
+    if (response.statusCode == 200) {
+      debugPrint("통신 성공");
+    } else {
+      debugPrint("통신 실패");
+    }
+
+    if (response.body == "true") {
+      return DuplicateEmailResponse(true);
+    } else {
+      return DuplicateEmailResponse(false);
+    }
+  }
+
+  Future<DuplicateNicknameResponse> nickNameDuplicateCheck(
+      DuplicateNicknameRequest request) async {
+    var data = {"name": request.name};
+    var body = json.encode(data);
+
+    var response = await http.post(
+      Uri.http(IpInfo.httpUri, '/member/check-nickname/${request.name}'),
+      headers: {"Content-Type": "application/json"},
+      body: body,
+    );
+
+    if (response.statusCode == 200) {
+      debugPrint("통신 성공");
+    } else {
+      debugPrint("통신 실패");
+    }
+
+    if (response.body == "true") {
+      return DuplicateNicknameResponse(true);
+    } else {
+      return DuplicateNicknameResponse(false);
+    }
+  }
 }
 
 class MemberSignUpRequest {
   String email;
   String password;
-  String nickname;
+  String name;
 
   MemberSignUpRequest(
-      this.email, this.password, this.nickname);
+      this.email, this.password, this.name);
 
   Map<String, dynamic> toJson() => {
     'email': email,
     'password': password,
-    'name': nickname
+    'name': name
   };
+}
+
+class DuplicateEmailResponse {
+  bool? success;
+
+  DuplicateEmailResponse(this.success);
+}
+
+class DuplicateEmailRequest {
+  String email;
+
+  DuplicateEmailRequest(this.email);
+}
+
+class DuplicateNicknameResponse {
+  bool? success;
+
+  DuplicateNicknameResponse(this.success);
+}
+
+class DuplicateNicknameRequest {
+  String name;
+
+  DuplicateNicknameRequest(this.name);
 }

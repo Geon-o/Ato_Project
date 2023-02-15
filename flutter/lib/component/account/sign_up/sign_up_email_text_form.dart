@@ -64,7 +64,7 @@ class _SignUpEmailTextFormState extends State<SignUpEmailTextForm> {
                           .emailDuplicateCheck(DuplicateEmailRequest(email!));
 
                       validation.then((value) {
-                        if (value.success == true) {
+                        if (value.success == false) {
                           showDialog(
                               context: context,
                               barrierDismissible: false,
@@ -81,7 +81,7 @@ class _SignUpEmailTextFormState extends State<SignUpEmailTextForm> {
                             SignUpEmailTextForm.buttonStateValue = true;
                           });
                         }
-                        if (value.success == false) {
+                        if (value.success == true) {
                           showDialog(
                               context: context,
                               barrierDismissible: false,
