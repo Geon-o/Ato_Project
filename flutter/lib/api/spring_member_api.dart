@@ -28,7 +28,7 @@ class SpringMemberApi {
     var body = json.encode(data);
 
     var response = await http.post(
-      Uri.http(IpInfo.httpUri, '/account/duplicate/${request.email}'),
+      Uri.http(IpInfo.httpUri, '/account/email-duplicate/${request.email}'),
       headers: {"Content-Type": "application/json"},
       body: body,
     );
@@ -52,7 +52,7 @@ class SpringMemberApi {
     var body = json.encode(data);
 
     var response = await http.post(
-      Uri.http(IpInfo.httpUri, '/account/duplicate/${request.name}'),
+      Uri.http(IpInfo.httpUri, '/account/nickname-duplicate/${request.name}'),
       headers: {"Content-Type": "application/json"},
       body: body,
     );
