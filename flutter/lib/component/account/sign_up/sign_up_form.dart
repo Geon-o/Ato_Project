@@ -58,64 +58,61 @@ class _SignUpFormState extends State<SignUpForm>{
                 primary: Colors.black
               ),
               onPressed: (){
-                if (_formKey.currentState!.validate()){
-                  var validation = SpringMemberApi().signUp(MemberSignUpRequest(emailController.text, confirmPasswordController.text, nicknameController.text));
+                if(_formKey.currentState!.validate()){
+                  if(SignUpEmailTextForm.buttonStateValue == true && SignUpNicknameTextForm.buttonStateValue == true){
+                    var validation = SpringMemberApi().signUp(MemberSignUpRequest(
+                      emailController.text,
+                      confirmPasswordController.text,
+                      nicknameController.text));
+                    validation.then((value) {
+                      if (value.success == true) {
+                        Get.off(const SignInPage());
+                      } else {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                content: const Text(
+                                  "오류 발생",
+                                  textAlign: TextAlign.center,
+                                ),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      Get.back();
+                                    },
+                                    child: const Text("확인", style: TextStyle(color: Colors.black)),
+                                  ),
+                                ],
+                              );
+                            });
+                      }
+                    });
+                  } else {
+                    showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (context) {
+                          return AlertDialog(
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                            content: const Text(
+                              "중복확인을 진행해주세요",
+                              textAlign: TextAlign.center,
+                            ),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Get.back();
+                                },
+                                child: const Text("확인", style: TextStyle(color: Colors.black)),
+                              ),
+                            ],
+                          );
+                        });
+                  }
                 }
-                // if(_formKey.currentState!.validate()){
-                //   if(SignUpEmailTextForm.buttonStateValue == true && SignUpNicknameTextForm.buttonStateValue == true){
-                //     var validation = SpringMemberApi().signUp(MemberSignUpRequest(
-                //       emailController.text,
-                //       confirmPasswordController.text,
-                //       nicknameController.text));
-                //     validation.then((value) {
-                //       if (value.success == true) {
-                //         Get.off(const SignInPage());
-                //       } else {
-                //         showDialog(
-                //             context: context,
-                //             barrierDismissible: false,
-                //             builder: (context) {
-                //               return AlertDialog(
-                //                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                //                 content: const Text(
-                //                   "오류 발생",
-                //                   textAlign: TextAlign.center,
-                //                 ),
-                //                 actions: [
-                //                   TextButton(
-                //                     onPressed: () {
-                //                       Get.back();
-                //                     },
-                //                     child: const Text("확인", style: TextStyle(color: Colors.black)),
-                //                   ),
-                //                 ],
-                //               );
-                //             });
-                //       }
-                //     });
-                //   } else {
-                //     showDialog(
-                //         context: context,
-                //         barrierDismissible: false,
-                //         builder: (context) {
-                //           return AlertDialog(
-                //             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                //             content: const Text(
-                //               "중복확인을 진행해주세요",
-                //               textAlign: TextAlign.center,
-                //             ),
-                //             actions: [
-                //               TextButton(
-                //                 onPressed: () {
-                //                   Get.back();
-                //                 },
-                //                 child: const Text("확인", style: TextStyle(color: Colors.black)),
-                //               ),
-                //             ],
-                //           );
-                //         });
-                //   }
-                // }
               },
               child: const Text("가입하기"),
             )
