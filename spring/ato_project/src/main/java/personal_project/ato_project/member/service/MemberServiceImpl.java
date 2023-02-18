@@ -9,19 +9,27 @@ import personal_project.ato_project.member.entity.BasicAuthentication;
 import personal_project.ato_project.member.entity.Member;
 import personal_project.ato_project.member.repository.AuthenticationRepository;
 import personal_project.ato_project.member.repository.MemberRepository;
+import personal_project.ato_project.member.service.request.AccountSignInRequest;
 import personal_project.ato_project.member.service.request.AccountSignUpRequest;
+import personal_project.ato_project.member.service.security.RedisService;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
+import java.util.UUID;
 
 @Slf4j
 @Service
-public class MemberServiceImpl implements MemberService{
+public class MemberServiceImpl implements MemberService {
 
     @Autowired
     private MemberRepository memberRepository;
 
     @Autowired
     private AuthenticationRepository authenticationRepository;
+
+    @Autowired
+    private RedisService redisService;
 
     @Override
     public Boolean signUp(AccountSignUpRequest accountSignUpRequest) {
@@ -39,7 +47,7 @@ public class MemberServiceImpl implements MemberService{
     public Boolean emailDuplicateCheck(String email) {
         Optional<Member> maybeEmail = memberRepository.findByEmail(email);
 
-        if (maybeEmail.isEmpty()){
+        if (maybeEmail.isEmpty()) {
             return false;
         }
         return true;
@@ -53,5 +61,33 @@ public class MemberServiceImpl implements MemberService{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public Map<String, String> signIn(AccountSignInRequest accountSignInRequest) {
+        Optional<Member> maybeSignUpAccount = memberRepository.findByMemberEmail(accountSignInRequest.getEmail());
+
+        if (maybeSignUpAccount.isPresent()) {
+            Member member = maybeSignUpAccount.get();
+
+            if (!member.isRightPassword(accountSignInRequest.getPassword())) {
+
+                throw new RuntimeException("WRONG PASSWORD");
+            }
+
+
+            UUID memberToken = UUID.randomUUID();
+
+            redisService.deleteByKey(memberToken.toString());
+            redisService.setKeyAndValue(memberToken.toString(), member.getId());
+
+            Map<String, String> memberInfo = new HashMap<>();
+            memberInfo.put("memberValue", memberToken.toString());
+            memberInfo.put("accountEmail", member.getEmail());
+            memberInfo.put("accountNickname", member.getName());
+
+            return memberInfo;
+        }
+        throw new RuntimeException("THIS IN AN UNREGISTERED ACCOUNT");
     }
 }

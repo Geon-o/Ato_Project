@@ -4,7 +4,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import personal_project.ato_project.member.service.MemberService;
+import personal_project.ato_project.member.service.request.AccountSignInRequest;
 import personal_project.ato_project.member.service.request.AccountSignUpRequest;
+
+import java.util.Map;
 
 @Slf4j
 @RestController
@@ -34,5 +37,12 @@ public class MemberController {
         log.info(name);
 
         return memberService.nicknameDuplicateCheck(name);
+    }
+
+    @PostMapping("sign-in")
+    public Map<String, String> signIn(@RequestBody AccountSignInRequest accountSignInRequest) {
+        log.info(String.valueOf(accountSignInRequest));
+
+        return memberService.signIn(accountSignInRequest);
     }
 }
