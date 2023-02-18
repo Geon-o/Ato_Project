@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 
 class SpringMemberApi {
+  static var signInResponse;
 
   signUp(MemberSignUpRequest request) async {
     var body = json.encode(request);
@@ -19,6 +20,20 @@ class SpringMemberApi {
       debugPrint("통신 성공");
     } else {
       debugPrint("통신 실패");
+    }
+  }
+
+  signIn(MemberSignInRequest signInRequest) async {
+    var body = json.encode(signInRequest);
+
+    try{
+      signInResponse = await http.post(
+        Uri.http(IpInfo.httpUri, "/account/sign-in"),
+        headers: {"Content-Type": "application/json"},
+        body: body,
+      );
+    } catch (e) {
+      debugPrint(e.toString());
     }
   }
 
@@ -83,6 +98,17 @@ class MemberSignUpRequest {
     'email': email,
     'password': password,
     'name': name
+  };
+}
+
+class MemberSignInRequest {
+  String email;
+  String password;
+
+  MemberSignInRequest(this.email, this.password);
+
+  Map<String, dynamic> toJson() => {
+    'email': email, 'password': password
   };
 }
 
