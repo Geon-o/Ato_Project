@@ -24,7 +24,7 @@ class _SignUpPageState extends State<SignUpPage>{
       ),
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.fromLTRB(30, 70, 30, 0),
+          padding: EdgeInsets.fromLTRB(30, MediaQuery.of(context).size.height*0.05, 30, 0),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

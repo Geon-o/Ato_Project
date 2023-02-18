@@ -59,7 +59,6 @@ class _SignUpFormState extends State<SignUpForm>{
     return Form(
       key: _formKey,
       child: SizedBox(
-        height: 644,
         child: Column(
           children: [
             SignUpEmailTextForm(controller: emailController),
