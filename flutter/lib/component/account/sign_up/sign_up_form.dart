@@ -1,3 +1,4 @@
+
 import 'package:ato/api/spring_member_api.dart';
 import 'package:ato/component/account/sign_up/sign_up_email_text_form.dart';
 import 'package:ato/component/account/sign_up/sign_up_nickname_text_form.dart';
@@ -24,6 +25,25 @@ class _SignUpFormState extends State<SignUpForm>{
   final nicknameController = TextEditingController();
 
   bool checkedValue = false;
+
+  void successSignUpSnackBar(){
+    Get.snackbar(
+      "타이틀",
+      "메세지",
+      titleText: Text("❗알림", textAlign: TextAlign.left, style: TextStyle(
+        fontSize: 13)),
+      messageText: Text("회원가입이 완료되었습니다.", style: TextStyle(
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+      ),textAlign: TextAlign.left),
+      snackPosition: SnackPosition.BOTTOM,
+      backgroundColor: Colors.black12,
+      forwardAnimationCurve: Curves.elasticInOut,
+      reverseAnimationCurve: Curves.easeOut,
+      margin: EdgeInsets.fromLTRB(10, 0, 10, 30),
+      borderRadius: 30,
+    );
+  }
 
   @override
   void dispose() {
@@ -112,6 +132,7 @@ class _SignUpFormState extends State<SignUpForm>{
                           );
                         });
                   }
+                  successSignUpSnackBar();
                 }
               },
               child: const Text("가입하기"),
