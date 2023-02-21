@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       child: GetMaterialApp(
         title: "signUp",
         debugShowCheckedModeBanner: false,
-        home: const SignUpPage(),
+        home: const SignInPage(),
         routes: {
           "sign-in": (context) => const SignInPage()
         },

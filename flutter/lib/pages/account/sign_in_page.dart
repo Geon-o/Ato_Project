@@ -1,4 +1,5 @@
 import 'package:ato/component/account/sign_in/sign_in_form.dart';
+import 'package:ato/component/account/social/naver/social_sign_in.dart';
 import 'package:ato/pages/account/sign_up_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,6 +29,10 @@ class SignInPage extends StatelessWidget {
                 Text("로그인", style: TextStyle(fontFamily: "jua", fontSize: 40), textAlign: TextAlign.center,),
                 SizedBox(height: 50),
                 SignInForm(),
+                Divider(height: 40, thickness: 1,),
+                Text("간편 로그인", style: TextStyle(fontSize: 15, color: Colors.grey), textAlign: TextAlign.center),
+                SizedBox(height: 23,),
+                SocialSignIn(),
                 Divider(height: 40, thickness: 1,),
                 SizedBox(height: 20,),
                 Row(
